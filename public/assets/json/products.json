@@ -1,0 +1,44 @@
+{
+  "brand": {
+    "name": "IronSoftware",
+    "logo": "assets/images/NavLogo.png",
+    "url": "/"
+  },
+  "links": [
+    {
+      "label": "PRODUCTS",
+      "dropdown": true,
+      "categories": [
+        {
+          "name": "Document",
+          "items": [
+            { "label": "IronPDF",        "badge": "Popular", "url": "/products/ironpdf" },
+            { "label": "IronWord",       "badge": "",        "url": "/products/ironword" },
+            { "label": "IronXL",         "badge": "",        "url": "/products/ironxl" },
+            { "label": "IronPrint",      "badge": "",        "url": "/products/ironprint" }
+          ]
+        },
+        {
+          "name": "Data & AI",
+          "items": [
+            { "label": "IronOCR",          "badge": "New", "url": "/products/ironocr" },
+            { "label": "IronBarcode",      "badge": "",    "url": "/products/ironbarcode" },
+            { "label": "IronWebScraper",   "badge": "",    "url": "/products/ironwebscraper" }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "ABOUT US",
+      "dropdown": false,
+      "url": "/about",
+      "bold": true
+    },
+    {
+      "label": "CAREER",
+      "dropdown": false,
+      "url": "/career",
+      "bold": false
+    }
+  ]
+}

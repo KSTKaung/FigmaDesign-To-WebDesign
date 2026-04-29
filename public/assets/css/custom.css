@@ -1,0 +1,1552 @@
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham-Light.woff2') format('woff2'),
+         url('../fonts/Gotham-Light.woff')  format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham-Book.woff2') format('woff2'),
+         url('../fonts/Gotham-Book.woff')  format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham-Medium.woff2') format('woff2'),
+         url('../fonts/Gotham-Medium.woff')  format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Gotham';
+    src: url('../fonts/Gotham-Bold.woff2') format('woff2'),
+         url('../fonts/Gotham-Bold.woff')  format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ── Fallback: Montserrat (closest free match while Gotham not loaded) ── */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ── CSS Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Gotham', 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #402640;
+}
+html{
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+/* Override Bootstrap font variable */
+:root {
+    --bs-font-sans-serif: 'Gotham', 'Montserrat', sans-serif;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+
+    /* Navbar design tokens */
+    --nav-bg:           #2C0F29;
+    --nav-height:       40px;
+    --nav-padding-x:    14px;     /* Figma X-14 */
+    --nav-padding-y:    13px;     /* Figma Y-13.12 */
+    --nav-gap:          25px;     /* Figma gap 25 */
+    --nav-menu-gap:     24px;     /* Figma MenuBar gap 24 */
+    --nav-font-size:    11px;     /* Figma font size 11 */
+    --nav-logo-w:       115px;    /* Figma 114.96 */
+    --nav-logo-h:       14px;     /* Figma 14.25 */
+    --nav-link-color:   #ffffff;
+    --nav-hover-color:  #cccccc;
+    --dropdown-border:  rgba(255,255,255,0.10);
+    --dropdown-hover:   rgba(255,255,255,0.08);
+    --badge-bg:         rgba(160,120,255,0.22);
+    --badge-color:      #c8b0ff;
+}
+
+/* ════════════════════════════════════
+   MAIN NAVBAR
+════════════════════════════════════ */
+.iron-navbar {
+    background-color: transparent;
+    padding: var(--nav-padding-y) var(--nav-padding-x);
+    min-height: var(--nav-height);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+/* ── Brand / Logo ── */
+.iron-navbar .navbar-brand {
+    padding: 0;
+    margin-right: var(--nav-gap);   /* Figma gap 25 between logo and menu */
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.iron-navbar .navbar-brand img {
+    width:  var(--nav-logo-w);      /* Figma 114.96 */
+    height: var(--nav-logo-h);      /* Figma 14.25 */
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+}
+
+/* ── Nav links container ── */
+.iron-navbar .navbar-nav {
+    gap: var(--nav-menu-gap);       /* Figma MenuBar gap 24 */
+    align-items: center;
+}
+
+/* ── Individual nav links ── */
+.iron-navbar .nav-link,
+.iron-navbar .dropdown-toggle {
+    font-family: 'Gotham', 'Montserrat', sans-serif;
+    font-size:   var(--nav-font-size);
+    font-weight: 400;
+    color:       var(--nav-link-color) !important;
+    letter-spacing: 0.06em;
+    padding: 0 !important;
+    line-height: 1;
+    transition: color 0.18s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    background: none;
+    border: none;
+}
+
+.iron-navbar .nav-link:hover,
+.iron-navbar .dropdown-toggle:hover {
+    color: var(--nav-hover-color) !important;
+}
+
+/* ABOUT US is bold per Figma */
+.iron-navbar .nav-link.nav-bold {
+    font-weight: 700;
+}
+
+/* ── Dropdown toggle caret ── */
+.iron-navbar .dropdown-toggle::after {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left:   4px solid transparent;
+    border-right:  4px solid transparent;
+    border-top:    5px solid #fff;
+    vertical-align: middle;
+    margin-left: 6px;
+    border-bottom: none;
+    content: '';
+    transition: transform 0.2s ease;
+}
+
+.iron-navbar .dropdown.show .dropdown-toggle::after {
+    transform: rotate(180deg);
+}
+
+/* ── Dropdown Menu ── */
+.iron-navbar .dropdown-menu {
+    background-color: var(--nav-bg);
+    border: 0.5px solid var(--dropdown-border);
+    border-radius: 6px;
+    padding: 10px 0;
+    min-width: 200px;
+    margin-top: 12px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+/* Category header inside dropdown */
+.iron-navbar .dropdown-category {
+    font-family: 'Gotham', 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9580ff;
+    padding: 8px 16px 4px;
+    pointer-events: none;
+}
+
+/* Divider between categories */
+.iron-navbar .dropdown-divider {
+    border-color: rgba(255,255,255,0.07);
+    margin: 6px 0;
+}
+
+/* Dropdown items */
+.iron-navbar .dropdown-item {
+    font-family: 'Gotham', 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: #cccccc;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.03em;
+}
+
+.iron-navbar .dropdown-item:hover,
+.iron-navbar .dropdown-item:focus {
+    background-color: var(--dropdown-hover);
+    color: #ffffff;
+}
+
+/* Badge inside dropdown item */
+.iron-navbar .nav-item-badge {
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'Gotham', 'Montserrat', sans-serif;
+    background: var(--badge-bg);
+    color: var(--badge-color);
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* ── Mobile toggler ── */
+.iron-navbar .navbar-toggler {
+    border: none;
+    padding: 4px;
+    outline: none;
+    box-shadow: none;
+}
+.iron-navbar .navbar-toggler:focus { box-shadow: none; }
+.iron-navbar .navbar-toggler-icon {
+    filter: invert(1);
+    width: 18px;
+    height: 18px;
+}
+
+/* ── Responsive: collapse padding ── */
+@media (max-width: 991.98px) {
+    .iron-navbar{
+        background-color: var(--nav-bg);
+    }
+    .iron-navbar .navbar-collapse {
+        background-color: var(--nav-bg);
+        padding: 12px 0 16px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        margin-top: 10px;
+        width: 100vw;
+    }
+    .iron-navbar .navbar-nav {
+        gap: 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .iron-navbar .nav-link,
+    .iron-navbar .dropdown-toggle {
+        font-size: 12px;
+        padding: 8px 0 !important;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .iron-navbar .dropdown-menu {
+        background-color: var(--nav-bg);
+        border: none;
+        border-left: 2px solid rgba(255,255,255,0.08);
+        border-radius: 0;
+        margin-top: 0 !important;
+        padding: 4px 0 4px 12px;
+    }
+}
+
+/* ============================================================
+   LAYER 2 — HERO SECTION
+   ============================================================ */
+
+/* ── CSS Variables ── */
+:root {
+    --font-primary:         'Gotham', 'Montserrat', sans-serif;
+
+    /* Hero Dark Band */
+    --hero-dark-bg:         #2C0F29;
+
+    /* Hero Logo */
+    --hero-logo-w:          232px;     /* Figma 232.29 */
+    --hero-logo-h:          40px;      /* Figma 40 */
+
+    /* Content text */
+    --hero-tagline-size:    18px;      /* Figma 18 Bold */
+    --hero-h1-size:         50px;      /* Figma 50 Black */
+    --hero-coming-size:     14px;      /* Figma 14 Light */
+    --hero-content-gap:     30px;      /* Figma gap 30 */
+
+    /* Signup Band */
+    --signup-bg:            #7b3fa0;
+    --signup-min-h:         260px;
+
+    /* Signup title */
+    --signup-h1-size:       40px;      /* Figma H1 Black 40 */
+    --signup-sub-size:      18px;      /* Figma 18 Bold */
+
+    /* Email form */
+    --form-input-size:      14px;      /* Figma 14 Medium */
+    --form-btn-color:       #E01A59;   /* Figma filled color */
+
+    /* Graphic image */
+    --graphic-w:            805px;     /* Figma 804.87 */
+    --graphic-h:            695px;     /* Figma 804.87 */
+}
+
+/* ════════════════════════════════════
+   HERO WRAPPER — TWO BANDS
+════════════════════════════════════ */
+.hero-wrapper {
+    width: 100%;
+    overflow: visible;
+    position: relative;
+}
+
+/* ══════════════════════════
+   BAND 1 — DARK (BLACK)
+══════════════════════════ */
+.hero-dark {
+    background-color: var(--hero-dark-bg);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Graphic image — absolutely positioned right side */
+/* Figma: X=849, Y=-52, W=804.87, H=710 → right-aligned, slight top overflow */
+.hero-graphic-wrap {
+    position: absolute;
+    top: 1px;                         /* Figma Y=-52 (overflow upward) */
+    left: 55%;
+    width: 58%;                        /* Responsive: ~half viewport */
+    max-width: var(--graphic-w);
+    max-height: var(--graphic-h);
+    height: calc(100% + var(--graphic-h));
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+.hero-graphic-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left top;
+    display: block;
+}
+
+/* Left content column */
+.hero-dark-content {
+    position: relative;
+    z-index: 2;
+    padding: 125px 0 80px 214px;        /* Figma X=214 left position */
+    max-width: 700px;
+}
+
+/* ── Hero Logo ── */
+/* Figma: width=232.29, height=40 */
+.hero-logo {
+    width: var(--hero-logo-w);
+    height: var(--hero-logo-h);
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+    margin-bottom: var(--hero-content-gap);   /* gap=30 */
+}
+
+/* ── Tagline: "Building on the success..." ── */
+/* Figma: Gotham 18 Bold */
+.hero-tagline {
+    font-family: var(--font-primary);
+    font-size: var(--hero-tagline-size);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0 0 var(--hero-content-gap) 0;
+}
+
+/* ── H1 Block: "Beta Software Program / IronPDF for C++" ── */
+/* Figma: Gotham 50 Black */
+.hero-h1 {
+    font-family: var(--font-primary);
+    font-size: var(--hero-h1-size);
+    font-weight: 900;
+    width: 645px;
+    height: 83px;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-top: -10px;
+}
+.hero-h1 .line-purple {
+    color: #c6aac6;
+    display: block;
+}
+
+/* ── Coming soon ── */
+/* Figma: Gotham 14 Light */
+.hero-coming {
+    font-family: var(--font-primary);
+    font-size: var(--hero-coming-size);
+    font-weight: 300;
+    line-height: 28px;
+    color: #8F618F;
+    margin: 0;
+}
+
+/* ══════════════════════════
+   BAND 2 — SIGNUP (PURPLE)
+══════════════════════════ */
+.hero-signup {
+    background: linear-gradient(135deg, #8E608E 0%, #402640 71%, #371A34 100%);
+    position: relative;
+    overflow: visible;
+    min-height: var(--signup-min-h);
+    display: flex;
+    align-items: center;
+}
+
+/* Ribbon graphic continues into this band */
+.hero-signup-graphic {
+    position: absolute;
+    top: -52px;
+    right: 0;
+    width: 50%;
+    max-width: var(--graphic-w);
+    height: calc(100% + 52px);
+    z-index: 1;
+    pointer-events: none;
+}
+.hero-signup-graphic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    display: block;
+    opacity: 0.7;
+}
+
+/* Signup left content */
+/* Figma: X=214, Y=464 (relative to full hero) → same left padding */
+.hero-signup-content {
+    position: relative;
+    z-index: 2;
+    padding: 56px 0 56px 214px;
+    max-width: 740px;
+    width: 100%;
+}
+
+/* ── Title: "Be one of the first" ── */
+/* Figma: H1 Black 40, color white */
+.signup-title {
+    font-family: var(--font-primary);
+    font-size: var(--signup-h1-size);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0 0 8px 0;
+}
+
+/* ── Subtitle: "Sign up NOW to get early access!" ── */
+/* Figma: Gotham 18 Bold */
+.signup-subtitle {
+    font-family: var(--font-primary);
+    font-size: var(--signup-sub-size);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 28px 0;
+    line-height: 1.4;
+}
+
+/* ── Email Form Field ── */
+/* Figma: pill-shaped wrapper, input X=26 Y=23.5, btn X=350 Y=0 */
+.signup-form {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 50px;
+    border: solid #c6aac6;
+    padding: 6px 6px 6px 26px;         /* Figma input X=26 → left padding */
+    max-width: 530px;
+    width: 530px;
+    height: 68px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+    margin-top: -12px;
+}
+
+/* Email input */
+/* Figma: placeholder "Enter email address", Gotham 14 Medium */
+.signup-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-primary);
+    font-size: var(--form-input-size);
+    font-weight: 500;
+    color: #431F43;
+    padding: 10px 0;
+    min-width: 0;
+}
+.signup-input::placeholder {
+    font-family: var(--font-primary);
+    font-size: 14px;
+    color: #431F43;
+    font-weight: 400;
+}
+
+/* Sign up button */
+/* Figma: X=350 Y=0, fill #E01A59, text white */
+.signup-btn {
+    position: relative;
+    left: 6px; /* move to right */
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: var(--form-btn-color);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    line-height: 1;
+    flex-shrink: 0;
+    height: 64px;
+}
+.signup-btn:hover  { background-color: #c2144d; }
+.signup-btn:active { transform: scale(0.97); }
+
+/* Arrow icon inside button */
+.signup-btn-arrow {
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* ── Coming Soon row ── */
+.signup-coming-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 710px;
+    height: 32px;
+}
+
+/* Pill badge */
+.coming-pill {
+    width: 146px;
+    height: 32px;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 700;
+    color: #8F618F;
+    background: #C6AAC6;
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 50px;
+    padding: 5px 16px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+/* Coming soon text */
+.coming-text {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    font-weight: 400;
+    color: #c6aac6;
+    line-height: 1.5;
+}
+.coming-text strong {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════════ */
+
+/* Large screens: keep left padding proportional */
+@media (max-width: 1400px) {
+    .hero-dark-content,
+    .hero-signup-content {
+        padding-left: 120px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .hero-dark-content,
+    .hero-signup-content {
+        padding-left: 60px;
+        padding-right: 20px;
+        max-width: 600px;
+    }
+    .hero-graphic-wrap,
+    .hero-signup-graphic {
+        width: 45%;
+        opacity: 0.85;
+    }
+    :root {
+        --hero-h1-size: 42px;
+        --signup-h1-size: 34px;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-dark-content,
+    .hero-signup-content {
+        padding-left: 32px;
+        padding-right: 32px;
+        max-width: 100%;
+    }
+    .hero-graphic-wrap,
+    .hero-signup-graphic {
+        margin-top: 105px;
+        width: 80%;
+        opacity: 0.35;
+    }
+    :root {
+        --hero-h1-size: 36px;
+        --signup-h1-size: 30px;
+        --hero-tagline-size: 16px;
+        --signup-sub-size: 16px;
+    }
+    .hero-logo {
+        width: 180px;
+        height: 31px;
+        margin-top: -30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-graphic-wrap {
+        left: 20%;        /* ← well within clipped area */
+        width: 100%;
+        opacity: 0.20;
+    }
+    .hero-logo{ margin-top: 20px;}
+    .hero-dark-content,
+    .hero-signup-content {
+        padding: 48px 24px;
+    }
+    .hero-h1{
+        height: 48px;
+    }
+    :root {
+        --hero-h1-size: 30px;
+        --signup-h1-size: 26px;
+        --hero-tagline-size: 15px;
+        --signup-sub-size: 15px;
+    }
+    .signup-form {
+        flex-direction: column;
+        border-radius: 50px;
+        border: solid #c6aac6;
+        padding: 12px 16px;
+        gap: 12px;
+        width: 100%;
+    }
+    .signup-input {
+        width: 100%;
+        padding: 8px 0;
+    }
+    .signup-btn {
+        position: relative;
+        top: -61px;
+        left: 36%;
+        justify-content: center;
+        flex-shrink: 0;
+        height: 64px;
+        border-radius: 50px;
+    }
+    .signup-coming-row{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --hero-h1-size: 26px;
+        --signup-h1-size: 24px;
+    }
+    .hero-logo {
+        width: 160px;
+        height: 28px;
+    }
+    .coming-text {
+        font-size: 12px;
+    }
+    .signup-btn{
+        height: 60px;
+        top: -60px;
+        left: 33%;
+        width: 45%;
+    }
+    .hero-signup{
+        height: 350px;
+    }
+}
+
+/* ============================================================
+   LAYER 3 — FEATURES / TEXT SECTION
+   Figma specs converted to responsive web layout
+   Font: Gotham (self-hosted) | Montserrat fallback
+   ============================================================ */
+
+/* ── CSS Variables ── */
+:root {
+    --font-primary:        'Gotham', 'Montserrat', sans-serif;
+
+    /* Figma layout tokens */
+    --l3-section-px:       215px;      /* Figma X=215 (left/right padding) */
+    --l3-title-size:       40px;       /* Figma font-size 40 */
+    --l3-feature-size:     16px;       /* Figma font-size 16 */
+    --l3-body-size:        16px;       /* Figma font-size 16 */
+
+    /* Background rectangles */
+    --l3-rect1-color:      rgba(23, 6, 23, 0.30);    /* #170617 at 30% */
+
+    /* Badge colors */
+    --badge-bg:            #258B74;    /* Figma subtract color */
+    --badge-highlight:     #63C1A0;    /* Figma intersect color */
+    --badge-text:          #FFFFFF;    /* Figma text color */
+}
+
+/* ════════════════════════════════════
+   LAYER 3 SECTION WRAPPER
+   Stacking context for background rects
+════════════════════════════════════ */
+.l3-section {
+    position: relative;
+    width: 100%;
+    height: 540px;
+    overflow: hidden;
+    padding: 80px 0 100px;
+    background-color: #2C0F29;          /* base page bg — rects overlay on top */
+}
+
+/* ════════════════════════════════════
+   BACKGROUND RECTANGLES (Figma layers)
+════════════════════════════════════ */
+
+/* Rect 1: X=0 Y=264 W=1600 H=274 fill=#170617 opacity=30% */
+.l3-rect1 {
+    position: absolute;
+    left: 0;
+    top: 260px;                          /* Figma Y=264 */
+    width: 100%;
+    height: 530px;                      
+    background-color: var(--l3-rect1-color);
+}
+
+/* Rect 2: X=137 Y=235.5 W=1184 H=343
+   fill: linear #E01A59 → #460A48 opacity=30%
+   Converted: center it proportionally (137/1600 = 8.5% from left) */
+.l3-polygon {
+    position: absolute;
+    top: 35%;
+    left: 9%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(35px);
+    opacity: 0.5;
+}
+.l3-polygon img {
+    width: 1184px;
+    height: 343px;
+}
+
+/* ════════════════════════════════════
+   CONTENT CONTAINER
+   Figma X=215 → max-width=1170, centered
+════════════════════════════════════ */
+.l3-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1170px;                   /* Figma width=1170 */
+    margin: 0 auto;
+    padding: 0 var(--l3-section-px);     /* Figma X=215 */
+    box-sizing: content-box;
+}
+
+/* ════════════════════════════════════
+   PORTION 1a — TITLE ROW
+   "IronPDF for C++" + Coming Soon badge
+   Figma: X=215, Y=94, font-size=40
+════════════════════════════════════ */
+.l3-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 40px;
+    position: relative;
+    padding:  18px 0 0 110px;
+}
+
+/* Title text */
+/* Figma: Gotham 40, centered */
+.l3-title {
+    font-family: var(--font-primary);
+    font-size: var(--l3-title-size);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    text-align: center;
+    margin: 0;
+    display: inline;
+}
+
+/* Coming Soon badge */
+/* Figma: W=81.47 H=81.47, X=937 Y=48 (slightly above title baseline) */
+.l3-badge-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    flex-shrink: 0;
+    margin-left: -30px;         /* slight overlap with title text */
+    margin-top: -30px;         /* Figma Y=48 → sits higher than title Y=94 */
+}
+
+.l3-badge-img {
+    width: 82px;               /* Figma 81.47 */
+    height: 82px;
+    object-fit: contain;
+    display: block;
+}
+
+/* ════════════════════════════════════
+   PORTION 1b — FEATURE BUTTONS ROW
+   Three texts with "|" dividers
+   Figma: Gotham 16, full width row
+════════════════════════════════════ */
+.l3-features-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 26;
+    margin-bottom: 60px;
+    margin-left: 100px;
+}
+
+/* Feature item */
+.l3-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    font-family: var(--font-primary);
+    font-size: var(--l3-feature-size);
+    font-weight: 400;
+    color: #cccccc;
+    white-space: nowrap;
+}
+
+/* "#" hash character */
+.l3-feature-hash {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* "|" divider between feature items */
+.l3-feature-divider {
+    color: #402640;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+/* ════════════════════════════════════
+   PORTION 2 — TEXT PARAGRAPHS
+   Figma: X=215, Y=319, W=1170, H=162
+   font-family=Gotham, font-size=16
+════════════════════════════════════ */
+.l3-body-wrap {
+    max-width: 1170px;         /* Figma width=1170 */
+    width: 100%;
+    gap: 40;
+    line-height: 28;
+}
+
+/* Shared paragraph styles */
+.l3-para1 {
+    font-family: var(--font-primary);
+    font-size: var(--l3-body-size);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.75;
+    margin: 100px 0 24px 0;
+    height: 84px;
+    width: 1180px;
+}
+.l3-para2 {
+    font-family: var(--font-primary);
+    font-size: var(--l3-body-size);
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.75;
+    margin: 0 0 24px 0;
+    height: 56px;
+    width: 1180px;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════════ */
+
+@media (max-width: 1400px) {
+    :root { --l3-section-px: 80px; }
+}
+
+@media (max-width: 1199px) {
+    :root {
+        --l3-section-px: 48px;
+        --l3-title-size: 34px;
+    }
+    .l3-feature-item { padding: 0 18px; font-size: 14px; }
+    .l3-features-row { margin-left: -10px;}
+    .l3-para1, .l3-para2 { width: 990px; }
+}
+
+@media (max-width: 991px) {
+    :root {
+        --l3-section-px: 32px;
+        --l3-title-size: 30px;
+        --l3-body-size: 15px;
+    }
+    .l3-section { padding: 60px 0 80px; }
+    .l3-features-row { margin-left: 10px; gap: 8px; }
+    .l3-feature-item { padding: 6px 12px; white-space: normal; text-align: center; }
+    .l3-feature-divider { display: none; }
+    .l3-para1, .l3-para2 { width: 850px;}
+}
+
+@media (max-width: 767px) {
+    :root {
+        --l3-section-px: 20px;
+        --l3-title-size: 26px;
+        --l3-feature-size: 14px;
+        --l3-body-size: 14px;
+    }
+    .l3-section { padding: 48px 0 64px; height: 520px; }
+    .l3-polygon { margin-top: -120px; margin-left: -100px;}
+    .l3-title { margin-top: -35px; margin-left: -70px;}
+    .l3-title-row { flex-direction: row; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+    .l3-badge-img { width: 60px; height: 60px; }
+    .l3-badge-wrap { margin-top: -52px; margin-left: -17px; }
+    .l3-features-row { flex-direction: column; align-items: flex-start; gap: 20px; margin-top: -30px;margin-bottom: 50px; margin-left: 0px; }
+    .l3-feature-item { padding: 0; white-space: normal; }
+    .l3-body-wrap { margin-top: -50px;}
+    .l3-rect1 { top: 200px; height: 200px; }
+    .l3-para1 { margin-top: 70px; width: 350px;  }
+    .l3-para2 { margin-top: 100px; width: 350px; }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --l3-section-px: 16px;
+        --l3-title-size: 22px;
+    }
+    .l3-badge-img { width: 50px; height: 50px; }
+}
+
+/* ============================================================
+   LAYER 4 — WHY MAKE A C++ PDF LIBRARY
+   Figma specs converted to responsive web layout
+   Font: Gotham (self-hosted) | Montserrat fallback
+   ============================================================ */
+/* ── CSS Variables ── */
+:root {
+    --font-primary:       'Gotham', 'Montserrat', sans-serif;
+
+    /* Figma tokens */
+    --l4-canvas:          1600px;        /* Figma canvas width */
+    --l4-content-w:       1180px;        /* Figma content width */
+    --l4-text-x:          538px;         /* Figma text block X=538 */
+    --l4-text-w:          847px;         /* Figma text block W=847 */
+    --l4-text-h:          56px;         /* Figma text block H=56 */
+    --l4-spacing:         50px;          /* Figma spacing=53 (gap icon→text) */
+    --l4-section-h:       204px;         /* Figma section H=204 (min-height) */
+
+    /* Icon */
+    --l4-icon-w:          470px;         /* Figma W=270.17 */
+    --l4-icon-h:          360px;         /* Figma H=179.51 */
+
+    /* Title */
+    --l4-title-size:      40px;          /* Figma font-size=40 */
+    --l4-title-lh:        48px;          /* Figma line-height=48 */
+
+    /* Paragraphs */
+    --l4-para-size:       16px;          /* Figma font-size=16 */
+    --l4-para-lh:         28px;          /* Figma line-height=28 */
+
+    /* Colors */       /* Dark section bg (from design) */
+    --l4-title-white:     #ffffff;
+    --l4-title-purple:    #C6AAC6;       /* Figma background color used as accent */
+    --l4-para-color:      #FFFFFF;
+}
+
+/* ════════════════════════════════════
+   SECTION WRAPPER
+   Dark background with subtle #C6AAC6
+   ambient glow matching the Figma bg
+════════════════════════════════════ */
+.l4-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: var(--l4-spacing) 7px;       /* Figma spacing=53 top/bottom */
+}
+
+/* ════════════════════════════════════
+   INNER CONTAINER
+   Figma: X=215 = left offset on 1600px canvas
+   → (215/1600)*100 = 13.4% → use max-width+auto margin
+════════════════════════════════════ */
+.l4-inner {
+    max-width: var(--l4-content-w);     /* 1170px */
+    margin-left: 110px;
+    padding: 0 var(--l4-icon-x);        /* Figma X=215 padding each side */
+    display: flex;
+    align-items: center;
+
+    /* Gap between icon and text block:
+       text X=538, icon X=215, icon W=270 → gap = 538-215-270 = 53px = --l4-spacing */
+    gap: var(--l4-spacing);
+    height: 300px;
+}
+
+/* ════════════════════════════════════
+   ICON COLUMN
+   Figma: X=215, Y=1391, W=270.17, H=179.51
+════════════════════════════════════ */
+.l4-icon-col {
+    flex-shrink: 0;
+    width: var(--l4-icon-w);            /* Figma W=270.17 */
+}
+
+.l4-icon-img {
+    width: var(--l4-icon-w);            /* Figma W=270.17 */
+    height: var(--l4-icon-h);           /* Figma H=179.51 */
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+/* ════════════════════════════════════
+   TEXT COLUMN
+   Figma: X=538, W=847, H=204
+════════════════════════════════════ */
+.l4-text-col {
+    flex: 1;
+    margin-left: -100px;
+    max-width: var(--l4-text-w);        /* Figma W=847 */
+    min-height: var(--l4-section-h);    /* Figma H=204 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ── Title: "Why make a C++ PDF Library" ──
+   Figma: W=733, H=48, Gotham Black 40, lh=48 */
+.l4-title {
+    font-family: var(--font-primary);
+    font-size: var(--l4-title-size);    /* Figma 40 */
+    font-weight: 900;                   /* Figma Black */
+    line-height: var(--l4-title-lh);    /* Figma lh=48 */
+    color: var(--l4-title-white);
+    margin: 0 0 22px 0;                 /* Y gap to Para1: Y=70 → 70-48=22px */
+    max-width: 733px;                   /* Figma W=733 */
+}
+
+/* Purple accent on "C++ PDF Library" */
+.l4-title-accent {
+    color: var(--l4-title-purple);
+}
+
+/* ── Paragraph 1 ──
+   Figma: X=0, Y=70, W=847, H=56
+   Gotham Light 16, lh=28 */
+.l4-para {
+    font-family: var(--font-primary);
+    font-size: var(--l4-para-size);     /* Figma 16 */
+    font-weight: 300;                   /* Figma Light */
+    line-height: var(--l4-para-lh);     /* Figma lh=28 */
+    color: var(--l4-para-color);
+    margin: 0;
+    width: 840px;
+}
+
+/* Gap between Para1 and Para2:
+   Para2 Y=148, Para1 Y=70, Para1 H=56 → gap = 148-70-56 = 22px */
+.l4-para + .l4-para {
+    margin-top: 22px;                   /* Figma Y=148 - (Y=70+H=56) = 22px */
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════════ */
+
+/* Large: scale down padding proportionally */
+@media (max-width: 1440px) {
+    .l4-inner {
+        padding: 0 80px;
+    }
+    .l4-icon-img { margin-left: -150px;}
+    .l4-text-col { margin-left: -230px;}
+    .l4-para { width: 750px; }
+}
+
+@media (max-width: 1199px) {
+    .l4-inner {
+        padding: 0 48px;
+        gap: 40px;
+    }
+    :root {
+        --l4-icon-w: 220px;
+        --l4-icon-h: 146px;
+        --l4-title-size: 34px;
+        --l4-title-lh: 42px;
+    }
+    .l4-icon-img { margin-left: -180px;}
+    .l4-para { width: 750px; }
+}
+
+@media (max-width: 991px) {
+    .l4-inner {
+        padding: 0 32px;
+        gap: 32px;
+    }
+    .l4-icon-img{
+        margin-left: -100px;
+    }
+    .l4-text-col{ margin-left: -110px; }
+    :root {
+        --l4-icon-w: 180px;
+        --l4-icon-h: 120px;
+        --l4-title-size: 28px;
+        --l4-title-lh: 36px;
+        --l4-para-size: 15px;
+        --l4-para-lh: 26px;
+    }
+    .l4-para { width: 620px;}
+}
+
+@media (max-width: 767px) {
+    .l4-section {
+        padding: 5px 0;
+        height: 650px;
+    }
+    .l4-inner {
+        flex-direction: column;          /* Stack icon above text on mobile */
+        align-items: center;
+        text-align: center;
+        height: 100%;
+    }
+    :root {
+        --l4-icon-w: 200px;
+        --l4-icon-h: 133px;
+        --l4-title-size: 26px;
+        --l4-title-lh: 34px;
+        --l4-para-size: 14px;
+        --l4-para-lh: 24px;
+    }
+    .l4-icon-img{
+        margin-left: -50px;
+    }
+    .l4-title {
+        max-width: 100%;
+        text-align: center;
+        margin-top: -250px;
+    }
+    .l4-text-col {
+        align-items: center;
+        max-width: 100%;
+    }
+    .l4-para {
+        text-align: left;
+        display: block;
+        position: static;
+        width: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .l4-inner {
+        padding: 0 16px;
+    }
+    :root {
+        --l4-title-size: 22px;
+        --l4-title-lh: 30px;
+    }
+}
+/* ============================================================
+   LAYER 5 — EARLY ACCESS + SIGN UP (Final Layer)
+   ============================================================ */
+:root {
+    --font:              'Gotham', 'Montserrat', sans-serif;
+
+    /* ── Part 1 tokens ── */
+    --l5-content-w:      1120px;          /* Figma W=1170 */
+    --l5-pad-x:          20px;           /* Figma X=215 */
+    --l5-title-size:     40px;            /* Figma Black 40 */
+    --l5-title-lh:       44px;            /* Figma line-height=44 */
+    --l5-para-size:      14px;            /* Figma Light 14 */
+    --l5-para-lh:        28px;            /* Figma line-height=28 */
+    --l5-title-mb:       40px;            /* Y(para)=84 - H(title)=44 = 40px */
+    --l5-para-mb:        40px;            /* Y(cards)=208 - (Y(para)=84+H(para)=84) = 40px */
+    --l5-accent:         #C6AAC6;
+
+    /* ── Card tokens ── */
+    --card-h:            88px;            /* Figma H=88 */
+    --card-gap:          10px;            /* gap between cards derived from 1170/(3*383.33) */
+    --card-pad-x:        30px;            /* Figma padding x=30 */
+    --card-pad-y:        23px;            /* Figma padding y=23 */
+    --card-radius:       122px;           /* Figma corner radius=122 */
+    --card-bg:           #170617;         /* Figma fill=#170617 */
+
+    /* Badge released */
+    --badge-rel-bg:      #C6AAC6;
+    --badge-rel-text:    #331433;
+
+    /* Badge coming soon */
+    --badge-cs-bg:       #331433;
+    --badge-cs-text:     #C6AAC6;
+
+    /* ── Sign-up bar tokens ── */
+    --l5-bar-bg:         #1706174D;         /* Figma fill=#170617 */
+    --l5-bar-pad-x:      110px;            /* Figma padding x=23 */
+    --l5-bar-pad-y:      5px;            /* Figma padding y=40 */
+    --l5-bar-h:          230px;           /* Figma H=230 */
+    --l5-bar-title-size: 30px;            /* Figma H2 Black 30 */
+    --l5-form-w:         600px;           /* Figma W=600 */
+    --l5-form-h:         56px;            /* Figma H=56 */
+    --l5-form-radius:    81px;            /* Figma corner radius=81 */
+    --l5-btn-color:      #E01A59;
+}
+
+/* ════════════════════════════════════
+   PART 4: SECTION BACKGROUND
+   Figma fill=#2C0F29
+════════════════════════════════════ */
+.l5-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #2C0F29;
+}
+
+/* ════════════════════════════════════
+   POLYGON BACKGROUND IMAGE
+════════════════════════════════════ */
+.l5-polygon {
+    position: absolute;
+    top: 5%;
+    left: 8.5%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(35px);
+    opacity: 0.5;
+}
+.l5-polygon img {
+    width: 1184px;
+    height: 343px;
+}
+
+/* ════════════════════════════════════
+   PART 1: EARLY ACCESS CONTENT
+   Figma: X=215, Y=1764, W=1170, H=296
+════════════════════════════════════ */
+.l5-access {
+    position: relative;
+    z-index: 2;
+    padding: 50px 0 40px;
+    height: 455px;
+}
+
+.l5-container {
+    max-width: var(--l5-content-w);
+    margin: 0 auto;
+    padding: 0 var(--l5-pad-x);
+}
+
+/* Title: "Early Access to C++ PDF Library"
+   Figma: W=1170, H=44, Gotham Black 40, lh=44 */
+.l5-title {
+    font-family: var(--font);
+    font-size: var(--l5-title-size);
+    font-weight: 900;
+    line-height: var(--l5-title-lh);
+    color: #ffffff;
+    margin: 30px 10px var(--l5-title-mb) 0;
+    display: block;
+}
+.l5-title-accent { color: var(--l5-accent); }
+
+/* Paragraph text
+   Figma: X=0, Y=84, W=1170, H=84, Gotham Light 14, lh=28 */
+.l5-para {
+    font-family: var(--font);
+    font-size: var(--l5-para-size);
+    font-weight: 300;
+    line-height: var(--l5-para-lh);
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 var(--l5-para-mb) 0;    /* Y(cards=208) - (Y(para=84)+H(para=84)) = 40px */
+    max-width: var(--l5-content-w);
+    display: block;
+}
+
+/* ════════════════════════════════════
+   CARDS ROW
+   Figma: X=0, Y=208, W=1170, H=88
+   Three equal-width cards
+════════════════════════════════════ */
+.l5-cards {
+    display: flex;
+    gap: var(--card-gap);
+    width: 100%;
+}
+
+/* Single card
+   Figma: W=383.33, H=88, padding x=30 y=23
+   fill=#170617, radius=122 */
+.l5-card {
+    flex: 1;
+    min-height: var(--card-h);
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    padding: var(--card-pad-y) var(--card-pad-x);
+    display: flex;
+    align-items: center;
+    gap: 30px;                            /* Figma gap=30 */
+    border: 1px solid rgba(198, 170, 198, 0.12);
+}
+
+/* Badge: shared base */
+.l5-badge {
+    font-family: var(--font);
+    font-size: 14px;                      /* Figma Bold 14 */
+    font-weight: 700;
+    line-height: 28px;                    /* Figma lh=28 */
+    border-radius: 126px;                 /* Figma radius=126 */
+    padding: 4px 24px;                    /* Figma padding x=24 y=4 */
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Badge – Released: fill=#C6AAC6, text=#331433 */
+.l5-badge-released {
+    background-color: var(--badge-rel-bg);
+    color: var(--badge-rel-text);
+}
+
+/* Badge – Coming Soon: fill=#331433, text=#C6AAC6 */
+.l5-badge-coming {
+    background-color: var(--badge-cs-bg);
+    color: var(--badge-cs-text);
+    border: 1px solid rgba(198, 170, 198, 0.25);
+}
+
+/* Card logo image */
+.l5-card-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ════════════════════════════════════
+   PART 2: SIGN-UP BAR
+   Figma: X=0, Y=2140, W=1600, H=230
+   fill=#170617, padding x=23 y=40, gap=30
+════════════════════════════════════ */
+.l5-signup-bar {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: var(--l5-bar-h);
+    background-color: var(--l5-bar-bg);
+    padding: var(--l5-bar-pad-y) 0 0 var(--l5-bar-pad-x);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;                            /* Figma Gap=30 */
+}
+
+/* Sign-up title
+   Figma: X=23, Y=55, W=1554, H=34, H2 Black 30 */
+.l5-signup-title {
+    font-family: var(--font);
+    font-size: var(--l5-bar-title-size);
+    font-weight: 900;
+    line-height: 1.2;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+.l5-signup-accent { color: #C6AAC6;}
+
+/* Email form pill
+   Figma: X=500, Y=119, W=600, H=56
+   padding: 3 3 3 26, radius=81 */
+.l5-signup-form {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: var(--l5-form-radius);
+    padding: 3px 3px 3px 26px;           /* Figma padding 3 3 3 26 */
+    width: var(--l5-form-w);
+    height: var(--l5-form-h);
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-left: -27px;
+}
+
+.l5-email-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font);
+    font-size: 14px;                      /* Figma Medium 14 */
+    font-weight: 500;
+    color: #181818;
+    min-width: 0;
+    padding: 0;
+}
+.l5-email-input::placeholder {
+    color: #181818;
+    font-weight: 400;
+    font-family: var(--font);
+    font-size: 14px;
+}
+
+/* Sign-up button
+   Figma: X=417, Y=3, W=180, H=50
+   fill=#E01A59, text=#FFFFFF */
+.l5-signup-btn {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: var(--l5-btn-color);
+    border: none;
+    border-radius: var(--l5-form-radius);
+    /* W=180, H=50 from Figma */
+    min-width: 180px;
+    height: 50px;
+    padding: 0 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.2s, transform 0.1s;
+    flex-shrink: 0;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════════ */
+@media (max-width: 1440px) {
+    .l5-container { padding: 0 80px; }
+}
+@media (max-width: 1199px) {
+    .l5-container { padding: 0 48px; }
+    :root {
+        --l5-title-size: 34px;
+        --l5-title-lh: 40px;
+    }
+    .l5-card-logo { height: 28px; }
+}
+@media (max-width: 991px) {
+    .l5-container { padding: 0 32px; }
+    :root {
+        --l5-title-size: 28px;
+        --l5-title-lh: 34px;
+        --l5-para-size: 13px;
+    }
+    .l5-cards { gap: 12px; }
+    .l5-badge { font-size: 11px; padding: 3px 14px; }
+    .l5-card { padding: 16px 18px; gap: 14px; }
+    .l5-card-logo { height: 24px; }
+}
+@media (max-width: 767px) {
+    .l5-section { margin-top: -150px; height: 800px;}
+    .l5-access { padding: 10px 0 40px; }
+    .l5-container { padding: 0 20px; }
+    :root {
+        --l5-title-size: 26px;
+        --l5-title-lh: 32px;
+        --l5-para-size: 13px;
+        --l5-para-lh: 24px;
+        --l5-title-mb: 24px;
+        --l5-para-mb: 28px;
+        --l5-bar-title-size: 24px;
+        --l5-form-w: 100%;
+    }
+    /* Stack cards vertically on mobile */
+    .l5-cards {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .l5-card {
+        min-height: auto;
+        padding: 16px 20px;
+        gap: 16px;
+        border-radius: 20px;
+    }
+    .l5-signup-bar { padding: 150px 20px; gap: 20px; }
+    .l5-signup-form { margin-left: 0px; width: 100%; max-width: 480px; }
+    .l5-polygon { left: 0; width: 100%; }
+}
+@media (max-width: 480px) {
+    .l5-container { padding: 0 16px; }
+    :root {
+        --l5-title-size: 22px;
+        --l5-title-lh: 28px;
+    }
+    .l5-signup-form {
+        flex-direction: column;
+        height: auto;
+        border-radius: 14px;
+        padding: 12px 16px;
+        gap: 10px;
+    }
+    .l5-email-input { width: 100%; padding: 4px 0; }
+    .l5-signup-btn { width: 100%; border-radius: 10px; height: 44px; }
+}
