@@ -1,61 +1,129 @@
-# CodeIgniter 4 Framework
+# Frontend From Figma to Web (CodeIgniter + Bootstrap)
+Develop and design page in Figma into Web Page.
+## 🚀 Requirements
+* PHP
+* Web Browser
+* Code editor (e.g., Visual Studio Code)
+* Git (optional, for version control)
 
-## What is CodeIgniter?
-
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
-
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
-
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Contributing
-
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## 📥 Installation Steps
+1. Download Dependencies
+   * Download Bootstrap (v5) from the official website
+   * Download PHP from the official Windows downloads page
+2. Install PHP (Windows)
+   1. Download the latest Thread Safe ZIP version of PHP
+   2. Extract the ZIP file
+   3. Rename the folder to:
+     ```
+     php
+     ```
+   4. Move the folder to:
+   ```
+    C:\php
+   ```
+3. Configure Environment Variables
+   1. Search for “Environment Variables” in Windows
+   2. Click Edit the system environment variables
+   3. Click Environment Variables
+   4. Under System Variables, select Path → click Edit
+   5. Click New and add:
+   ```
+   C:\php
+   ```
+   6. Click OK to save all changes
+4. Verify PHP Installation
+   Open Command Prompt and run:
+   ```
+   php -v
+   ```
+   You should see the installed PHP version.
+5. Configure PHP
+   1. In C:\php, find:
+   ```
+   php.ini-development
+   ```
+   2. Rename it to:
+   ```
+   php.ini
+   ```
+   3. Open php.ini and enable the following extensions:
+   ```
+   extension=intl
+   extension=mbstring
+   ```
+6. Run CodeIgniter Project
+   Navigate to your project folder in terminal and run:
+   ```
+   php spark serve
+   ```
+   Then open your browser and go to:
+   ```
+   http://localhost:8080
+   ```
+## 🛠️ Tech Stack
+* HTML5
+* CSS3
+* JavaScript
+* Bootstrap 5
+* CodeIgniter (PHP Framework)
+## 📂 Project Structure (Basic)
+```
+│
+├── app/                          # Application logic
+│   ├── Config/
+│   │   ├── App.php               # Base URL config
+│   │   ├── Routes.php            # Route definitions
+│   │   └── ...
+│   │
+│   ├── Controllers/
+│   │   ├── BaseController.php
+│   │   └── Home.php              
+│   │
+│   ├── Models/
+│   │
+│   ├── Views/
+│   │   ├── layouts/              # 🔑 Master layout templates
+│   │   │   └── main.php          # Base HTML with Bootstrap
+│   │   │
+│   │   ├── components/           # 🔑 Reusable UI parts
+│   │   │   ├── navbar.php        #  Menu Bar
+│   │   │
+│   │   ├── pages/                # 🔑 Individual pages
+│   │   │   ├── home.php        #  Home Page
+│   │   │
+│   │   └── errors/               # Error pages
+│
+├── public/                       # 🔑 Web root (point server here)
+│   │
+│   ├── assets/                   # All static files
+│   │   │
+│   │   ├── css/
+│   │   │   ├── bootstrap.min.css # Bootstrap CSS
+│   │   │   └── custom.css        # Your custom styles
+│   │   │
+│   │   ├── js/
+│   │   │   ├── bootstrap.bundle.min.js  # Bootstrap JS
+│   │   │   └── custom.js         # Your custom scripts
+│   │   │
+│   │   ├── images/               # Images include in web page
+│   │   │   ├── badge.png
+│   │   │   └── NavLogo.jpg
+│   │   │   └── ...
+│   │   │
+│   │   └── fonts/                # custom fonts
+│   │       └── Gotham
+│   │
+│   └── index.php                 # Entry point (do not edit)
+│
+├── system/                       # CodeIgniter core (do not edit)
+├── writable/                     # Logs, cache, sessions
+├── tests/                        # Unit tests
+├── env                           # Environment config template
+├── .env                          # Your environment config
+├── composer.json
+└── spark                         # CLI tool
+```
+## ⚠️ Notes
+* Ensure PHP is properly added to PATH
+* Do not upload sensitive files like `.env` to GitHub
+* Make sure required PHP extensions are enabled
